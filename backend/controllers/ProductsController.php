@@ -7,6 +7,7 @@ use backend\models\Products;
 use backend\models\Picture;
 use backend\models\ProductsSearch;
 use backend\models\ProductContainer;
+use backend\models\Category;
 use yii\web\Controller;
 use yii\helpers\Url;
 use yii\web\NotFoundHttpException;
@@ -91,8 +92,10 @@ class ProductsController extends Controller
         $model = new Products();
 
         $conditions = ProductContainer::find()->all();
+        $condCategory = Category::find()->all();
 
         if ($model->load(Yii::$app->request->post())) {
+
 
             $imageFile = UploadedFile::getInstance($model, 'image');
 
@@ -118,6 +121,7 @@ class ProductsController extends Controller
         return $this->render('create', [
             'model' => $model,
             'conditions' => ArrayHelper::map($conditions, 'id', 'name'),
+            'condCategory' => ArrayHelper::map($condCategory, 'id', 'name'),
         ]);
     }
 
@@ -133,12 +137,17 @@ class ProductsController extends Controller
         $this->Auth();
         $model = $this->findModel($id);
 
+        $conditions = ProductContainer::find()->all();
+        $condCategory = Category::find()->all();
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
             'model' => $model,
+            'conditions' => ArrayHelper::map($conditions, 'id', 'name'),
+            'condCategory' => ArrayHelper::map($condCategory, 'id', 'name'),
         ]);
     }
 

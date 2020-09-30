@@ -19,6 +19,8 @@ use frontend\models\ContactForm;
 use frontend\models\SpecialFunctions;
 
 use backend\models\Products;
+use backend\models\Category;
+use backend\models\Wishlist;
 
 
 /**
@@ -81,29 +83,52 @@ class SiteController extends Controller
      */
 
     public function actionCart(){
-        // $crossCheck = new SpecialFunctions();
-        $session = Yii::$app->session;
-        // $session['cart'] = '';
-        $pid[] = $session['cart'];
+        if(!isset($_SESSION['cart'])) {
+            $_SESSION['cart'] = [];
+        } 
 
         if(isset($_POST['pid'])){
-            $pid[] = $_POST['pid'];
-            $session['cart'] = $pid;
+            // $pid[] = 
+            $_SESSION['cart'][] = $_POST['pid'];;
         }
 
-        $carts = Products::find()->where(['id' => $session['cart']])->all();
+        $carts = Products::find()->where(['id' => $_SESSION['cart']])->all();
+        // return $this->goBack();
         return $this->render('cart', ['carts' => $carts]);
+    }
+
+
+    public function actionAddcart(){
+        $session = Yii::$app->session;
+        if(!isset($_SESSION['cart'])) {
+            $_SESSION['cart'] = [];
+        } 
+
+        if(isset($_POST['pid'])){
+            $_SESSION['cart'][] = $_POST['pid'];;
+        }
+
+        return $this->goBack();
     }
 
     public function actionIndex()
     {
-        // $products = Products::find()->where(['status' => 1])->all();
+        $categories = Category::find()->all();
+        $products_list = Products::find()->all();
+
+        $wishlist = Wishlist::find()
+            ->where(['user_id' => Yii::$app->user->id])
+            ->limit(3)
+            ->orderBy(new \yii\db\Expression('rand()'))
+            ->all();
+
         $products = new ActiveDataProvider([
             'query' => Products::find()->where(['status' => 1])->orderBy('created_at DESC'),
-            'pagination' => ['pageSize' => 3],
+            'pagination' => ['pageSize' => 12],
         ]);
 
-        return $this->render('index', ['products'=>$products]);
+        
+        return $this->render('index', ['products'=>$products, 'categories' => $categories, 'products_list' => $products_list, 'wishlist'=>$wishlist]);
     }
 
     public function actionView($id)

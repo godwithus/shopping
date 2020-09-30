@@ -23,7 +23,7 @@ AppAsset::register($this);
     <title>Yii2 E-commerce Platform</title>
     <?php $this->head() ?>
 </head>
-<body>
+<body style="background-color: #ffffff;">
 <?php $this->beginBody() ?>
 
 <div class="wrap" style="padding-bottom: 0px;">

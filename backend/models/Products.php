@@ -38,7 +38,7 @@ class Products extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [[ 'name', 'description', 'amount', 'quantity', 'avalability', 'prod_condition', 'brand', 'stock', 'image', 'status'], 'required'],
+            [[ 'name', 'description', 'amount', 'quantity', 'avalability', 'prod_condition', 'category_id', 'brand', 'stock', 'image', 'status'], 'required'],
             [['description'], 'string'],
             [['quantity', 'stock', 'status'], 'integer'],
             [['user_email', 'ikey', 'created_at'], 'safe'],
@@ -64,6 +64,7 @@ class Products extends \yii\db\ActiveRecord
             'quantity' => 'Quantity',
             'avalability' => 'Avalability',
             'prod_condition' => 'Prod Condition',
+            'category_id' => 'Category',
             'brand' => 'Brand',
             'stock' => 'Stock',
             'image' => 'Image',
@@ -75,5 +76,10 @@ class Products extends \yii\db\ActiveRecord
     public function getPictures()
     {
         return $this->hasMany(Picture::className(), ['product_id'=>'id']);
+    }
+
+    public function getCategory()
+    {
+        return $this->hasOne(Category::className(), ['category_id'=>'id']);
     }
 }

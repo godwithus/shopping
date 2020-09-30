@@ -25,6 +25,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'prod_condition')->dropDownList($conditions) ?>
 
+    <?= $form->field($model, 'category_id')->dropDownList($condCategory) ?>
+
     <?= $form->field($model, 'brand')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'stock')->textInput() ?>

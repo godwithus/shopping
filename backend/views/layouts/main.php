@@ -43,6 +43,7 @@ AppAsset::register($this);
     } else {
         $productUrl = 
         $menuItems[] = ['label' => 'Products', 'url' => ['/products']];
+        $menuItems[] = ['label' => 'Category', 'url' => ['/category']];
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')
             . Html::submitButton(

@@ -25,18 +25,18 @@ use yii\helpers\Url;
 				</thead>
 				<tbody>
 
-					<?php foreach ($carts as $cart) { ?>
+					<?php foreach ($wishlists as $wishlist) { ?>
 						<tr>
 							<td class="cart_product">
-								<a href=""><img src="<?= Url::to('@web/images/products/'.$cart->image) ?>" alt="" width="100
+								<a href=""><img src="<?= Url::to('@web/images/products/'.$wishlist->image) ?>" alt="" width="100
 								"></a>
 							</td>
 							<td class="cart_description">
-								<h4><a href=""><?= $cart->name ?></a></h4>
-								<p>Web ID: <?= $cart->ikey ?></p>
+								<h4><a href=""><?= $wishlist->name ?></a></h4>
+								<p>Web ID: <?= $wishlist->ikey ?></p>
 							</td>
 							<td class="cart_price">
-								<p>$<?= $cart->amount ?> </p>
+								<p>$<?= $wishlist->amount ?> </p>
 							</td>
 							<td class="cart_quantity">
 								<div class="cart_quantity_button">
@@ -46,7 +46,7 @@ use yii\helpers\Url;
 								</div>
 							</td>
 							<td class="cart_total">
-								<p class="cart_total_price">$<?= $cart->amount ?></p>
+								<p class="cart_total_price">$<?= $wishlist->amount ?></p>
 							</td>
 							<td class="cart_delete">
 								<a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
